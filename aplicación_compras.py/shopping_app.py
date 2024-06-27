@@ -2,65 +2,62 @@ from customer import Customer
 from item import Item
 from seller import Seller
 
-# Crear un vendedor
-seller = Seller("DIC Coffee")
-
-# Añadir varios artículos al inventario del vendedor
+seller = Seller("Tienda DIC")  # "DICストア" -> "Tienda DIC"
 for i in range(10):
     Item("CPU", 40830, seller)
-    Item("Memoria RAM", 13880, seller)  
-    Item("Placa madre", 28980, seller)  
-    Item("Fuente de alimentación", 8980, seller)  
-    Item("Caja de PC", 8727, seller)  
-    Item("Disco duro de 3.5 pulgadas", 10980, seller) 
-    Item("SSD de 2.5 pulgadas", 13370, seller) 
-    Item("M.2 SSD", 12980, seller)  
-    Item("Refrigerador de CPU", 13400, seller)  
-    Item("Tarjeta gráfica", 23800, seller)  
+    Item("Memoria", 13880, seller)  # "メモリー" -> "Memoria"
+    Item("Placa Base", 28980, seller)  # "マザーボード" -> "Placa Base"
+    Item("Unidad de Fuente de Alimentación", 8980, seller)  # "電源ユニット" -> "Unidad de Fuente de Alimentación"
+    Item("Caja de PC", 8727, seller)  # "PCケース" -> "Caja de PC"
+    Item("HDD de 3.5 pulgadas", 10980, seller)  # "3.5インチHDD" -> "HDD de 3.5 pulgadas"
+    Item("SSD de 2.5 pulgadas", 13370, seller)  # "2.5インチSSD" -> "SSD de 2.5 pulgadas"
+    Item("M.2 SSD", 12980, seller)  # "M.2 SSD" -> "M.2 SSD"
+    Item("Enfriador de CPU", 13400, seller)  # "CPUクーラー" -> "Enfriador de CPU"
+    Item("Tarjeta Gráfica", 23800, seller)  # "グラフィックボード" -> "Tarjeta Gráfica"
 
-print("🤖 Por favor, dime tu nombre")
+print("🤖 Por favor, ingresa tu nombre")  # "🤖 あなたの名前を教えてください" -> "🤖 Por favor, ingresa tu nombre"
 customer = Customer(input())
 
-print("🏧 Ingresa la cantidad que deseas cargar en tu billetera")
+print("🏧 Por favor, ingresa la cantidad para depositar en la cartera")  # "🏧 ウォレットにチャージする金額を入力にしてください" -> "🏧 Por favor, ingresa la cantidad para depositar en la cartera"
 customer.wallet.deposit(int(input()))
 
-print("🛍️ Comenzando compras")
+print("🛍️ Comenzamos con las compras")  # "🛍️ ショッピングを開始します" -> "🛍️ Comenzamos con las compras"
 end_shopping = False
 while not end_shopping:
-    print("📜 Lista de productos disponibles")
+    print("📜 Lista de productos")  # "📜 商品リスト" -> "📜 Lista de productos"
     seller.show_items()
 
-    print("️️⛏ Ingresa el número del producto que deseas")
+    print("️️⛏ Por favor, ingresa el número del producto")  # "️️⛏ 商品番号を入力してください" -> "️️⛏ Por favor, ingresa el número del producto"
     number = int(input())
 
-    print("⛏ Ingresa la cantidad del producto que deseas")
+    print("⛏ Por favor, ingresa la cantidad del producto")  # "⛏ 商品数量を入力してください" -> "⛏ Por favor, ingresa la cantidad del producto"
     quantity = int(input())
 
     items = seller.pick_items(number, quantity)
     for item in items:
         customer.cart.add(item)
-    print("🛒 Contenido del carrito")
+    print("🛒 Contenido del carrito")  # "🛒 カートの中身" -> "🛒 Contenido del carrito"
     customer.cart.show_items()
-    print(f"🤑 Total a pagar: {customer.cart.total_amount()}")
+    print(f"🤑 Importe total: {customer.cart.total_amount()}")  # "🤑 合計金額: {customer.cart.total_amount()}" -> "🤑 Importe total: {customer.cart.total_amount()}"
 
-    print("😭 ¿Deseas finalizar la compra? (sí/no)")
-    end_shopping = input() == "sí"
+    print("😭 ¿Quieres terminar las compras? (yes/no)")  # "😭 買い物を終了しますか？(yes/no)" -> "😭 ¿Quieres terminar las compras? (yes/no)"
+    end_shopping = input() == "yes"
 
-print("💸 ¿Deseas confirmar la compra? (sí/no)")
-if input() == "sí":
+print("💸 ¿Deseas confirmar la compra? (yes/no)")  # "💸 購入を確定しますか？(yes/no)" -> "💸 ¿Deseas confirmar la compra? (yes/no)"
+if input() == "yes":
     customer.cart.check_out()
 
-print("୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ Resultados ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧")
-print(f"️🛍️ ️Artículos de {customer.name}")
+print("୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈Resultado┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧")  # "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈結果┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧" -> "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈Resultado┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧"
+print(f"🛍️ Propiedades de {customer.name}")  # "🛍️ ️{customer.name}の所有物" -> "🛍️ Propiedades de {customer.name}"
 customer.show_items()
-print(f"😱👛 Saldo en la billetera de {customer.name}: {customer.wallet.balance}")
+print(f"😱👛 Saldo de la cartera de {customer.name}: {customer.wallet.balance}")  # "😱👛 {customer.name}のウォレット残高: {customer.wallet.balance}" -> "😱👛 Saldo de la cartera de {customer.name}: {customer.wallet.balance}"
 
-print(f"📦 Inventario de {seller.name}")
+print(f"📦 Estado del inventario de {seller.name}")  # "📦 {seller.name}の在庫状況" -> "📦 Estado del inventario de {seller.name}"
 seller.show_items()
-print(f"😻👛 Saldo en la billetera de {seller.name}: {seller.wallet.balance}")
+print(f"😻👛 Saldo de la cartera de {seller.name}: {seller.wallet.balance}")  # "😻👛 {seller.name}のウォレット残高: {seller.wallet.balance}" -> "😻👛 Saldo de la cartera de {seller.name}: {seller.wallet.balance}"
 
-print("🛒 Contenido del carrito")
+print("🛒 Contenido del carrito")  # "🛒 カートの中身" -> "🛒 Contenido del carrito"
 customer.cart.show_items()
-print(f"🌚 Total a pagar: {customer.cart.total_amount()}")
+print(f"🌚 Importe total: {customer.cart.total_amount()}")  # "🌚 合計金額: {customer.cart.total_amount()}" -> "🌚 Importe total: {customer.cart.total_amount()}"
 
-print("🎉 Fin del programa")
+print("🎉 Fin")  # "🎉 終了" -> "🎉 Fin"
